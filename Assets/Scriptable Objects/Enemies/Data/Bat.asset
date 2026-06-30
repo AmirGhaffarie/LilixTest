@@ -16,7 +16,7 @@ MonoBehaviour:
   enemyMaterial: {fileID: 2100000, guid: 97956fc85d8228340bc8345cc7af86f8, type: 2}
   actions:
   - {fileID: 11400000, guid: 0f6ab46b33ac5024c8ef9eac2794145e, type: 2}
-  - {fileID: 11400000, guid: e97205f424714694faacd6a78f9f014a, type: 2}
+  - {fileID: 11400000, guid: 0f6ab46b33ac5024c8ef9eac2794145e, type: 2}
   - {fileID: 11400000, guid: e97205f424714694faacd6a78f9f014a, type: 2}
   - {fileID: 11400000, guid: e97205f424714694faacd6a78f9f014a, type: 2}
   - {fileID: 11400000, guid: e97205f424714694faacd6a78f9f014a, type: 2}

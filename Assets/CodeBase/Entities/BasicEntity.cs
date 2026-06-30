@@ -21,7 +21,7 @@ namespace CodeBase.Entities
             protected abstract EntityData EntityData { get; }
 
             public bool IsAlive => Health > 0;
-            public Transform Transform => transform;
+            public virtual Transform Transform => transform;
 
             protected virtual void InitializeStats()
             {

@@ -15,6 +15,7 @@ namespace CodeBase.Entities.Enemy
         [SerializeField] private GameObject blockUI;
         [SerializeField] private TextMeshProUGUI enemyBlockText;
         [Header("Action Indicator")]
+        [SerializeField] private GameObject actionIndicator;
         [SerializeField] private Image actionIcon;
         [SerializeField] private TextMeshProUGUI actionText;
 
@@ -34,6 +35,13 @@ namespace CodeBase.Entities.Enemy
         }
         private void UpdateAction()
         {
+            if (enemy.CurrentAction == null)
+            {
+                actionIndicator.SetActive(false);
+                return;
+            }
+            
+            actionIndicator.SetActive(true);
             var action = enemy.CurrentAction;
             actionIcon.sprite = action.icon;
             actionText.text = action.amount.ToString();

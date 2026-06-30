@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using CodeBase.Effects;
 using CodeBase.Entities;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace CodeBase.Cards
@@ -13,7 +14,11 @@ namespace CodeBase.Cards
         public int baseCost;
         public Sprite artwork;
         [TextArea] public string description;
-        public List<EffectData> effects;
+        [InlineEditor]public List<EffectData> effects;
+        [Header("Visual")]
+        public GameObject effectPrefab;
+        public float effectDuration;
+        public float impactOffset;
         
         public CardInstance CreateInstance()
         {

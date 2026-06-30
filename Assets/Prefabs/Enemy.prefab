@@ -854,7 +854,7 @@ MonoBehaviour:
   m_BlockingObjects: 0
   m_BlockingMask:
     serializedVersion: 2
-    m_Bits: 4294967295
+    m_Bits: 55
 --- !u!114 &2709983645615817334
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -872,6 +872,7 @@ MonoBehaviour:
   enemyHealthText: {fileID: 3088918663012684002}
   blockUI: {fileID: 710415205456328188}
   enemyBlockText: {fileID: 45696691818379504}
+  actionIndicator: {fileID: 5429148177676675342}
   actionIcon: {fileID: 7462717317650217733}
   actionText: {fileID: 1206569935998399698}
 --- !u!1 &7929202898523345728

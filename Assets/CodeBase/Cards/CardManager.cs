@@ -2,6 +2,7 @@
 using System.Collections;
 using CodeBase.Entities;
 using CodeBase.Entities.Player;
+using CodeBase.Game;
 using PrimeTween;
 using TMPro;
 using UnityEngine;
@@ -27,7 +28,9 @@ namespace CodeBase.Cards
         public event Action<CardInstance> OnCardDrawn;
 
         private CardInstance pendingCard;
-        
+
+        public bool IsPlayingCard { get; private set; } = false;
+
         private void Awake()
         {
             Initialize();
@@ -88,18 +91,55 @@ namespace CodeBase.Cards
             if(!IsValidTarget(card, target))
                 return;
             
-            SpendMana(card.CurrentCost);
+            StartCoroutine(CardExecutionCoroutine(card, target));
             
-            foreach (var effect in card.Effects)
-            {
-                effect.Execute(target);
-            }
-
-            DiscardCard(card);
-
             pendingCard = null;
 
             OnCardPlayed?.Invoke(card);
+        }
+
+        private readonly Vector3 vfxOffset = new(0,-0.1f,-0.03f);
+        private IEnumerator CardExecutionCoroutine(CardInstance card, ITargetable target)
+        {
+            SpendMana(card.CurrentCost);
+            DiscardCard(card);
+            
+            IsPlayingCard = true;
+            GameManager.Instance.UpdateTurnButton();
+            
+            var cardData = card.Data;
+            
+            GameObject vfx = null;
+            if (cardData.effectPrefab != null)
+            {
+                vfx = Instantiate(cardData.effectPrefab,
+                    target.Transform.position + vfxOffset, cardData.effectPrefab.transform.rotation);
+            }
+
+            if (cardData.effectDuration > 0)
+            {
+                Tween.Delay(cardData.impactOffset, () => {      
+                    foreach (var effect in card.Effects)
+                    {
+                        effect.Execute(target);
+                    }    
+                });
+            }
+            else
+            {
+                foreach (var effect in card.Effects)
+                {
+                    effect.Execute(target);
+                }  
+            }
+            
+            yield return new WaitForSeconds(cardData.effectDuration);
+            
+            if(vfx != null)
+                Destroy(vfx.gameObject);
+            
+            IsPlayingCard = false;
+            GameManager.Instance.UpdateTurnButton();
         }
 
         private bool IsValidTarget(CardInstance card, ITargetable target)

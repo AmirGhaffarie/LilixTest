@@ -50,12 +50,12 @@ namespace CodeBase.Cards
             costText.color = canAfford? Color.green : Color.red;
             
             nameText.text = card.Data.cardName;
-            descriptionText.text = string.Join("\n", card.Effects.Select(e => e.GetDescription()));
+            descriptionText.text = card.Data.description + string.Join("\n", card.Effects.Select(e => e.GetDescription()));
         }
         
         public void OnBeginDrag(PointerEventData eventData)
         {
-            if (!manager.CanAfford(card)) return;
+            if (!manager.CanAfford(card) || manager.IsPlayingCard) return;
 
             var targetPlayer = card.Data.target == Target.self;
             

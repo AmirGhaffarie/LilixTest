@@ -71,6 +71,10 @@ namespace CodeBase.Game
             }
         }
 
+        public void UpdateTurnButton()
+        {
+            endTurnButton.interactable = CurrentCombatState == CombatState.PlayerInput && !cardManager.IsPlayingCard;
+        }
 
         private IEnumerator ProcessState()
         {
@@ -82,6 +86,8 @@ namespace CodeBase.Game
                 {
                     case CombatState.PlayerDraw:
 
+                        SetEnemyIntentions();
+                        
                         player.RemoveBlock();
                         player.RefillMana();
 
@@ -119,6 +125,14 @@ namespace CodeBase.Game
                         break;
                 }
             }
+        }
+
+        private void SetEnemyIntentions()
+        {
+            foreach (var enemy in enemies)
+            {
+                enemy.SetNewAction();
+            } 
         }
 
         public void EndTurn()

@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using CodeBase.Effects;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace CodeBase.Entities.Enemy
@@ -10,6 +11,10 @@ namespace CodeBase.Entities.Enemy
         public Target target;
         public Sprite icon;
         public int amount;
-        public List<EffectData> effects;
+        [InlineEditor]public List<EffectData> effects;
+        [Header("Visual")]
+        public GameObject effectPrefab;
+        public float effectDuration;
+        public float impactOffset;
     }
 }

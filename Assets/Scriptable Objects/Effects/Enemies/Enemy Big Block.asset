@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8a6b77cd014f88976ab99a73927fbb, type: 3}
   m_Name: Enemy Big Block
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Effects.Block.BlockEffectData
-  baseBlock: 50
+  baseBlock: 20

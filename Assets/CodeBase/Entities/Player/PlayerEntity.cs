@@ -10,7 +10,7 @@ namespace CodeBase.Entities.Player
     {
         public static PlayerEntity Instance;
         [SerializeField] private PlayerData playerData;
-        
+        [SerializeField] private Transform effectTarget;
         public int MaxMana => playerData.maxMana;
         public int Mana { get; private set; }
 
@@ -20,6 +20,8 @@ namespace CodeBase.Entities.Player
         }
 
         protected override EntityData EntityData => playerData;
+
+        public override Transform Transform => effectTarget;
 
         public List<CardData> StartingDeck => playerData.startingDeck;
         

@@ -17,3 +17,6 @@ MonoBehaviour:
   amount: 15
   effects:
   - {fileID: 11400000, guid: 0b0a0d50ba21e584f8ce00674819df18, type: 2}
+  effectPrefab: {fileID: 145150, guid: 16d4b504584fb1d4784bc23462900274, type: 3}
+  effectDuration: 0.35
+  impactOffset: 0.06
