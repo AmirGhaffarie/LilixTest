@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using CodeBase.Entities;
 using CodeBase.Entities.Player;
 using PrimeTween;
@@ -56,13 +57,14 @@ namespace CodeBase.Cards
             discardPileCount.text = DiscardPile.Count.ToString();
         }
 
-        public void DrawHand()
+        public IEnumerator DrawHandCoroutine()
         {
             const int drawCount = 3;
         
             for (var i = 0; i < drawCount; i++)
             {
                 DrawCard();
+                yield return new WaitForSeconds(0.15f);
             }
         }
 
@@ -163,12 +165,13 @@ namespace CodeBase.Cards
             view.Bind(card, this);
         }
 
-        public void DiscardHand()
+        public IEnumerator DiscardHandCoroutine()
         {
             var handCards = Hand.Cards;
             for (var i = handCards.Count - 1; i >=0 ; i--)
             {
                 DiscardCard(handCards[i]);
+                yield return new WaitForSeconds(0.15f);
             }
         }
     }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using CodeBase.Entities.CodeBase;
 using CodeBase.Entities.Player;
 using UnityEngine;
@@ -36,7 +37,7 @@ namespace CodeBase.Entities.Enemy
             onActionChange?.Invoke();
         }
 
-        public void DoAction()
+        public IEnumerator DoActionCoroutine()
         {
             ITargetable target =  CurrentAction.target switch
             {
@@ -47,6 +48,8 @@ namespace CodeBase.Entities.Enemy
             
             if(target == null)
                 throw new ArgumentException("Invalid target for enemy action");
+
+            yield return new WaitForSeconds(0.5f);
             
             foreach (var effect in CurrentAction.effects)
             {
@@ -54,6 +57,6 @@ namespace CodeBase.Entities.Enemy
             }
             SetNewAction();
         }
-        
+
     }
 }

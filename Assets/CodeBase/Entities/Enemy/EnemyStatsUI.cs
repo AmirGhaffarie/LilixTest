@@ -5,7 +5,7 @@ using UnityEngine.UI;
 
 namespace CodeBase.Entities.Enemy
 {
-    public class EnemyStatsUI : MonoBehaviour, IPointerClickHandler
+    public class EnemyStatsUI : MonoBehaviour
     {
         [SerializeField] private EnemyEntity enemy;
         [Header("Health")]
@@ -49,11 +49,6 @@ namespace CodeBase.Entities.Enemy
         
             blockUI.SetActive(hasBlock);
             enemyBlockText.text = enemy.Block.ToString();
-        }
-
-        public void OnPointerClick(PointerEventData eventData)
-        {
-            enemy.DoAction();
         }
     }
 }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using CodeBase.Cards;
 using CodeBase.Entities.Enemy;
@@ -11,18 +12,18 @@ namespace CodeBase.Game
     public class GameManager : MonoBehaviour
     {
         public static GameManager Instance;
+
         [Header("References")]
         [SerializeField] private PlayerEntity player;
         [SerializeField] private CardManager cardManager;
         [SerializeField] private List<EnemyEntity> enemies;
-        
         [SerializeField] private Button endTurnButton;
-        
-        public CombatState CurrentCombatState {get; private set;}
+
+        public CombatState CurrentCombatState { get; private set; }
 
         public static Action OnGameWin;
         public static Action OnGameLose;
-        
+
         private void Awake()
         {
             Instance = this;
@@ -49,58 +50,94 @@ namespace CodeBase.Game
             if(player != null)
                 player.OnDeath -= OnPlayerDeath;
         }
-
+        
+        private void Start()
+        {
+            StartCoroutine(ProcessState());
+        }
+        
         private void OnPlayerDeath()
         {
+            CurrentCombatState = CombatState.BattleEnd;
             OnGameLose?.Invoke();
         }
 
         private void CheckWin()
         {
-            if(enemies.Count <= 0)
-                OnGameWin?.Invoke();
-        }
-
-        private void Start()
-        {
-            ProcessState();
-        }
-
-        public void ProcessState()
-        {
-            switch (CurrentCombatState)
+            if (enemies.Count <= 0)
             {
-                case CombatState.PlayerDraw:
-                    player.RemoveBlock();
-                    player.RefillMana();
-                    cardManager.DrawHand();
-                    CurrentCombatState = CombatState.PlayerInput;
-                    break;
-                case CombatState.PlayerInput:
-                    CurrentCombatState = CombatState.PlayerEnd;
-                    ProcessState();
-                    break;
-                case CombatState.PlayerEnd:
-                    cardManager.DiscardHand();
-                    CurrentCombatState = CombatState.EnemyExecute;
-                    ProcessState();
-                    break;
-                case CombatState.EnemyExecute:
-                    CurrentCombatState = CombatState.EnemyEnd;
-                    RemoveEnemyBlocks();
-                    DoEnemyActions();
-                    ProcessState();
-                    break;
-                case CombatState.EnemyEnd:
-                    CurrentCombatState = CombatState.PlayerDraw;
-                    ProcessState();
-                    break;
-                case CombatState.BattleEnd:
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException();
+                OnGameWin?.Invoke();
+                CurrentCombatState = CombatState.BattleEnd;
             }
-            endTurnButton.interactable = CurrentCombatState == CombatState.PlayerInput;
+        }
+
+
+        private IEnumerator ProcessState()
+        {
+            endTurnButton.interactable = false;
+
+            while (CurrentCombatState != CombatState.BattleEnd)
+            {
+                switch (CurrentCombatState)
+                {
+                    case CombatState.PlayerDraw:
+
+                        player.RemoveBlock();
+                        player.RefillMana();
+
+                        yield return cardManager.DrawHandCoroutine();
+
+                        CurrentCombatState = CombatState.PlayerInput;
+                        break;
+
+                    case CombatState.PlayerInput:
+
+                        endTurnButton.interactable = true;
+
+                        // Wait until player ends turn
+                        yield return new WaitUntil(() =>
+                            CurrentCombatState != CombatState.PlayerInput);
+
+                        break;
+
+                    case CombatState.PlayerEnd:
+
+                        endTurnButton.interactable = false;
+
+                        RemoveEnemyBlocks();
+
+                        yield return cardManager.DiscardHandCoroutine();
+
+                        CurrentCombatState = CombatState.EnemyExecute;
+                        break;
+
+                    case CombatState.EnemyExecute:
+
+                        yield return StartCoroutine(DoEnemyActions());
+
+                        CurrentCombatState = CombatState.PlayerDraw;
+                        break;
+                }
+            }
+        }
+
+        public void EndTurn()
+        {
+            CurrentCombatState = CombatState.PlayerEnd;
+        }
+
+        private IEnumerator DoEnemyActions()
+        {
+            foreach (var enemy in enemies)
+            {
+                if (enemy == null)
+                    continue;
+
+                yield return enemy.DoActionCoroutine();
+
+                // Small pause between enemies
+                yield return new WaitForSeconds(0.3f);
+            }
         }
 
         private void RemoveEnemyBlocks()
@@ -110,15 +147,7 @@ namespace CodeBase.Game
                 enemy.RemoveBlock();
             }        
         }
-
-        private void DoEnemyActions()
-        {
-            foreach (var enemy in enemies)
-            {
-                enemy.DoAction();
-            }
-        }
-
+        
         public void HighlightEnemies()
         {
             foreach (var enemy in enemies)

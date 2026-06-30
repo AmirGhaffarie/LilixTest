@@ -573,7 +573,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1954794331}
         m_TargetAssemblyTypeName: CodeBase.Game.GameManager, Assembly-CSharp
-        m_MethodName: ProcessState
+        m_MethodName: EndTurn
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
