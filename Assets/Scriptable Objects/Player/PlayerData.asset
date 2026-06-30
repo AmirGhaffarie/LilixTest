@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 76bb8241610049ed8a963e743fb8a7f4, type: 3}
+  m_Name: PlayerData
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Entities.Player.PlayerData
+  maxHealth: 100
+  maxMana: 3
+  startingDeck:
+  - {fileID: 11400000, guid: d3cd6b07102d0ea4ca9351eb3756aa98, type: 2}
+  - {fileID: 11400000, guid: d3cd6b07102d0ea4ca9351eb3756aa98, type: 2}
+  - {fileID: 11400000, guid: d3cd6b07102d0ea4ca9351eb3756aa98, type: 2}
+  - {fileID: 11400000, guid: 6be77392239a11349bf91735d9f50b66, type: 2}
+  - {fileID: 11400000, guid: c988cf0895e08f845a4ed28f2e270d57, type: 2}
+  - {fileID: 11400000, guid: a4c8c26f35c62ed4bb9e5657158990f6, type: 2}
+  - {fileID: 11400000, guid: 4c0d4cf52a2341c46b53db425b045ee9, type: 2}
+  - {fileID: 11400000, guid: 4c0d4cf52a2341c46b53db425b045ee9, type: 2}
+  - {fileID: 11400000, guid: a4c8c26f35c62ed4bb9e5657158990f6, type: 2}
+  - {fileID: 11400000, guid: a4c8c26f35c62ed4bb9e5657158990f6, type: 2}

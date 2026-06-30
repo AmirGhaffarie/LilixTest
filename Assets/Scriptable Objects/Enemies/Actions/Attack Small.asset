@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e594b2b9ee5f354fa1bf61fb19f01c3, type: 3}
+  m_Name: Attack Small
+  m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Entities.Enemy.EnemyAction
+  target: 1
+  icon: {fileID: 21300000, guid: 17105757c47e03b4480c4adfb073d4f0, type: 3}
+  amount: 10
+  effects:
+  - {fileID: 11400000, guid: 2fe75b3e23d768f4791621191015a651, type: 2}
