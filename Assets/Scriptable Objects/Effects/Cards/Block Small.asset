@@ -12,4 +12,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bf8a6b77cd014f88976ab99a73927fbb, type: 3}
   m_Name: Block Small
   m_EditorClassIdentifier: Assembly-CSharp::CodeBase.Effects.Block.HealEffectData
-  baseBlock: 8
+  baseBlock: 12

@@ -19,7 +19,7 @@ MonoBehaviour:
   description: 
   effects:
   - {fileID: 11400000, guid: 5c80f15c28965a0439227afc85071ddb, type: 2}
-  - {fileID: 11400000, guid: f8774350b1f3e3943b4d50b849d9bf6f, type: 2}
+  - {fileID: 11400000, guid: 8a195865ddba0e8488da7085d15147cb, type: 2}
   effectPrefab: {fileID: 4569046032541823318, guid: 448ffbcf71db27749b98c4ed68e15143, type: 3}
   effectDuration: 0.7
   impactOffset: 0.2
